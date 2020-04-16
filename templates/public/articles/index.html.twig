@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Articles index{% endblock %}
+
+{% block body %}
+    <h1>Articles index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Image</th>
+                <th>Description</th>
+                <th>Date_add</th>
+                <th>Date_update</th>
+                <th>Date_delete</th>
+                <th>Activate</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for article in articles %}
+            <tr>
+                <td>{{ article.id }}</td>
+                <td>{{ article.titre }}</td>
+                <td>{{ article.image }}</td>
+                <td>{{ article.description }}</td>
+                <td>{{ article.dateAdd ? article.dateAdd|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ article.dateUpdate ? article.dateUpdate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ article.dateDelete ? article.dateDelete|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ article.activate ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('articles_show', {'id': article.id}) }}">show</a>
+                    <a href="{{ path('articles_edit', {'id': article.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('articles_new') }}">Create new</a>
+{% endblock %}
